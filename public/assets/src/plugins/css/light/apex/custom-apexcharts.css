@@ -1,0 +1,34 @@
+/*
+	===============================
+			@Import	Function
+	===============================
+*/
+/*
+	===============================
+			@Import	Mixins
+	===============================
+*/
+.apexcharts-canvas {
+  margin: 0 auto;
+}
+
+.apexcharts-title-text, .apexcharts-yaxis-label, .apexcharts-xaxis-label {
+  fill: #191e3a;
+}
+
+.apexcharts-legend-text {
+  color: #191e3a !important;
+}
+
+.apexcharts-radialbar-track.apexcharts-track .apexcharts-radialbar-area {
+  stroke: #e0e6ed;
+}
+
+.apexcharts-pie-label, .apexcharts-datalabel {
+  fill: #fff;
+}
+
+.apexcharts-datalabel-label, .apexcharts-datalabel-value {
+  fill: #191e3a;
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL2Jhc2UvX2Z1bmN0aW9ucy5zY3NzIiwiLi4vYmFzZS9fbWl4aW5zLnNjc3MiLCJhcGV4L2N1c3RvbS1hcGV4Y2hhcnRzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQ0FBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUNDQTtFQUNJOzs7QUFHRjtFQUNFOzs7QUFHRjtFQUNFOzs7QUFHRjtFQUNFOzs7QUFHRjtFQUNFOzs7QUFFRjtFQUNFIiwiZmlsZSI6ImFwZXgvY3VzdG9tLWFwZXhjaGFydHMuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLypcclxuXHQ9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XHJcblx0XHRcdEBJbXBvcnRcdEZ1bmN0aW9uXHJcblx0PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxyXG4qL1xyXG5cclxuIiwiLypcclxuXHQ9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XHJcblx0XHRcdEBJbXBvcnRcdE1peGluc1xyXG5cdD09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cclxuKi9cclxuXHJcbi8vIEJvcmRlclxyXG4kZGlyZWN0aW9uOiAnJztcclxuQG1peGluIGJvcmRlcigkZGlyZWN0aW9uLCAkd2lkdGgsICRzdHlsZSwgJGNvbG9yKSB7XHJcblxyXG4gICBAaWYgJGRpcmVjdGlvbiA9PSAnJyB7XHJcbiAgICAgICAgYm9yZGVyOiAkd2lkdGggJHN0eWxlICRjb2xvcjtcclxuICAgfSBAZWxzZSB7XHJcbiAgICAgICAgYm9yZGVyLSN7JGRpcmVjdGlvbn06ICR3aWR0aCAkc3R5bGUgJGNvbG9yO1xyXG4gICB9XHJcbn0iLCJAaW1wb3J0ICcuLi8uLi9iYXNlL2Jhc2UnO1xyXG4uYXBleGNoYXJ0cy1jYW52YXMge1xyXG4gICAgbWFyZ2luOiAwIGF1dG87XHJcbiAgfVxyXG4gIFxyXG4gIC5hcGV4Y2hhcnRzLXRpdGxlLXRleHQsIC5hcGV4Y2hhcnRzLXlheGlzLWxhYmVsLCAuYXBleGNoYXJ0cy14YXhpcy1sYWJlbCB7XHJcbiAgICBmaWxsOiAjMTkxZTNhO1xyXG4gIH1cclxuICBcclxuICAuYXBleGNoYXJ0cy1sZWdlbmQtdGV4dCB7XHJcbiAgICBjb2xvcjogIzE5MWUzYSAhaW1wb3J0YW50O1xyXG4gIH1cclxuICBcclxuICAuYXBleGNoYXJ0cy1yYWRpYWxiYXItdHJhY2suYXBleGNoYXJ0cy10cmFjayAuYXBleGNoYXJ0cy1yYWRpYWxiYXItYXJlYSB7XHJcbiAgICBzdHJva2U6ICNlMGU2ZWQ7XHJcbiAgfVxyXG4gIFxyXG4gIC5hcGV4Y2hhcnRzLXBpZS1sYWJlbCwgLmFwZXhjaGFydHMtZGF0YWxhYmVsIHtcclxuICAgIGZpbGw6ICNmZmY7XHJcbiAgfVxyXG4gIC5hcGV4Y2hhcnRzLWRhdGFsYWJlbC1sYWJlbCwgLmFwZXhjaGFydHMtZGF0YWxhYmVsLXZhbHVlIHtcclxuICAgIGZpbGw6ICMxOTFlM2E7XHJcbiAgfSJdfQ== */

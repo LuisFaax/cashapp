@@ -1,0 +1,13 @@
+.nt-li:focus,
+.nt-li.active {
+  background-color: #f9fafb;
+}
+
+.nt-li:focus *,
+.nt-li.active * {
+  color: black!important;
+}
+
+.nt-li>.d-flex:hover {
+  background-color: #f8f9fa;
+}
