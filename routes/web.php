@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Customers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// route('customers')
+// url('customers')
+
+Route::get('customers', Customers::class)->name('customers');
+
 
 Route::get('/', function () {
     return view('welcome');

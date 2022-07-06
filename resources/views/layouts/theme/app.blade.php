@@ -7,11 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>Sistema de Préstamos | CashApp </title>
 
-    <script src="../layouts/vertical-dark-menu/loader.js"></script>
+    <script src="{{ asset('assets/layouts/vertical-dark-menu/loader.js') }}"></script>
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     @include('layouts.theme.styles')
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+
+    @livewireStyles
+
+
 
 </head>
 
@@ -61,7 +65,7 @@
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     @include('layouts.theme.scripts')
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-
+    @livewireScripts
 </body>
 
 </html>
