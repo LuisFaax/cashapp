@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->enum('profile', ['Admin', 'Employee'])->default('Admin');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('loan_id')->constrained();
+            $table->date('date');
+            $table->integer('number');
+            $table->decimal('payment', 10, 2);
+            $table->decimal('interest', 10, 2);
+            $table->decimal('amort', 10, 2);
+            $table->decimal('balance', 10, 2);
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('plans');
     }
 };
