@@ -12,4 +12,6 @@
  <link href="{{ asset('assets/src/plugins/src/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
  <link href="{{ asset('assets/src/assets/css/light/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
  <link href="{{ asset('assets/src/assets/css/dark/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
- 
+
+ <link rel="stylesheet" href="{{ asset('assets/src/plugins/src/font-icons/fontawesome/css/regular.css') }}">
+ <link rel="stylesheet" href="{{ asset('assets/src/plugins/src/font-icons/fontawesome/css/fontawesome.css') }}">

@@ -48,9 +48,7 @@
         <div id="content" class="main-content">
 
             <div class="layout-px-spacing">
-
                 {{$slot}}
-
             </div>
 
             <!--  BEGIN FOOTER  -->
