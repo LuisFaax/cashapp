@@ -1,5 +1,6 @@
 <script>
     function fireModal(action = 1) {
+
         if (action == 1) {
             document.querySelector('.modal').classList.add('show')
             document.querySelector('.modal').style.display = 'block'
@@ -7,5 +8,16 @@
             document.querySelector('.modal').classList.add('hide')
             document.querySelector('.modal').style.display = 'none'
         }
+    }
+
+
+
+    window.addEventListener('modal-open', event => {
+        fireModal(1)
+    })
+
+
+    function Confirm(CustomerId) {
+        alert(CustomerId)
     }
 </script>

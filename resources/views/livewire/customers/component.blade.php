@@ -11,7 +11,7 @@
                         </div>
 
                         <div class="col-sm-12 col-md-2 d-flex justify-content-end p-3">
-                            <button class="btn btn-primary btn-sm" onclick="fireModal(1)" type="button">ADD</button>
+                            <button class="btn btn-primary btn-sm" wire:click="Add" type="button">ADD</button>
                         </div>
 
                     </div>
@@ -32,42 +32,50 @@
 
                             </thead>
                             <tbody>
+                                @forelse($customers as $customer)
                                 <tr>
                                     <td class="text-left">
                                         <div class="media">
                                             <div class="avatar me-2">
-                                                <img alt="avatar" src="{{ asset('src/assets/img/profile-7.jpeg') }}" class="rounded" />
+                                                <img alt="avatar" src="" class="rounded" />
                                             </div>
                                             <div class="media-body">
-                                                <h6 class="mb-0">Shaun Park</h6>
-                                                <span>shaun.park@mail.com</span>
+                                                <h6 class="mb-0">{{$customer->name}}</h6>
+                                                <span>{{$customer->email}}</span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-center">000-000-0000</td>
-                                    <td class="text-center">26</td>
+                                    <td class="text-center">{{$customer->phone}}</td>
+                                    <td class="text-center">{{$customer->age}}</td>
                                     <td class="text-center">
-                                        Male
+                                        {{$customer->gender}}
                                     </td>
                                     <td class="text-center">
-                                        <span class="badge badge-light-success">$25000.00</span>
+                                        <span class="badge badge-light-success">${{number_format($customer->salary,2)}}</span>
                                     </td>
                                     <td class="text-center">
 
-
-                                        <button class="btn btn-info btn-sm">
+                                        <button wire:click="showInfo({{ $customer->id }})" class="btn btn-info btn-sm">
                                             <i class="far fa-eye fa-lg "></i>
                                         </button>
-                                        <button wire:click="Edit(1)" class="btn btn-warning btn-sm">
+
+                                        <button wire:click="Edit({{ $customer->id }})" class="btn btn-warning btn-sm">
                                             <i class="far fa-edit fa-lg "></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm">
+
+                                        <button onclick="Confirm({{ $customer->id }})" class="btn btn-danger btn-sm">
                                             <i class="far fa-trash-alt fa-lg "></i>
-                                            </a>
+                                        </button>
 
                                     </td>
                                 </tr>
-
+                                @empty
+                                <tr>
+                                    <td colspan="6">
+                                        NO DATA
+                                    </td>
+                                </tr>
+                                @endforelse
 
 
                             </tbody>
