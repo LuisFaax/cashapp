@@ -15,3 +15,7 @@
 
  <link rel="stylesheet" href="{{ asset('assets/src/plugins/src/font-icons/fontawesome/css/regular.css') }}">
  <link rel="stylesheet" href="{{ asset('assets/src/plugins/src/font-icons/fontawesome/css/fontawesome.css') }}">
+
+ <link rel="stylesheet" href="{{ asset('assets/src/plugins/src/sweetalerts2/sweetalerts2.css') }}">
+ <link href="{{ asset('assets/src/plugins/css/light/sweetalerts2/custom-sweetalert.css') }}" rel="stylesheet" type="text/css" />
+ <link href="{{ asset('assets/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css') }}" rel="stylesheet" type="text/css" />

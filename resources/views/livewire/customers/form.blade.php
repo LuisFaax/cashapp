@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label">Phone*</label>
-                    <input wire:model="phone" type="text" class="form-control form-control-sm" placeholder="000 00 0000">
+                    <input wire:model.defer="phone" type="text" class="form-control form-control-sm" placeholder="000 00 0000">
                     @error('phone') <span class="text-warning">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-sm-12 col-md-9">

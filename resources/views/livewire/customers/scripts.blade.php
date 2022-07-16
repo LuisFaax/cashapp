@@ -16,8 +16,26 @@
         fireModal(1)
     })
 
+    window.addEventListener('noty', event => {
+        alert(event.detail.msg)
+    })
+
 
     function Confirm(CustomerId) {
-        alert(CustomerId)
+        Swal.fire({
+            title: 'Info',
+            text: "¿CONFIRMAS ELIMINAR EL REGISTRO?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                /// Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
+                //window.livewire.emit('Destroy', CustomerId) // 1,2 ,3
+                @this.Destroy(CustomerId)
+            }
+        })
     }
 </script>
