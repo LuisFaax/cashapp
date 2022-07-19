@@ -12,11 +12,11 @@ class Customers extends Component
     use WithFileUploads;
 
     public $name, $email, $phone, $address, $salary, $age, $gender = 'Select', $avatar, $selected_id = 0;
-    public $componentName = 'CUSTOMERS', $action = 'Listado';
+    public $componentName = 'CUSTOMERS', $action = 'Listado', $photo;
 
     protected $rules = [
         'name' => 'required|min:3|unique:customers',
-        'email' => 'nullable|email',
+        'email' => 'nullable|unique:customers|email',
         'phone' => 'required|max:10',
         'address' => 'required|min:10|max:255',
         'salary' => 'required',
@@ -77,7 +77,8 @@ class Customers extends Component
     {
         sleep(2);
 
-        $this->rules['name'] = $this->selected_id > 0 ? "required|min:3|unique:customers,name{$this->selected_id}" : 'required|min:3|unique:customers';
+        $this->rules['name'] = $this->selected_id > 0 ? "required|min:3|unique:customers,name,{$this->selected_id}" : 'required|min:3|unique:customers';
+        $this->rules['email'] = $this->selected_id > 0 ? "nullable|unique:customers,email,{$this->selected_id}" : 'nullable|unique:customers|email';
 
         $validateDate = $this->validate();
 
@@ -94,7 +95,7 @@ class Customers extends Component
             ]
         );
 
-        if (!empty($this->phone)) {
+        if (!empty($this->avatar)) {
             if ($this->selected_id > 0) {
                 $tmpImg = $customer->avatar;
                 if ($tmpImg != null && file_exists('storage/customers/' . $tmpImg)) {
@@ -102,16 +103,15 @@ class Customers extends Component
                 }
             }
 
-            $customAvatarName = uniqid() . '.' . $this->phone->extension(); // 321654.png
-            $this->phone->storeAs('public/customers', $customAvatarName);
+            $customAvatarName = uniqid() . '.' . $this->avatar->extension(); // 321654.png
+            $this->avatar->storeAs('public/customers', $customAvatarName);
 
             $customer->avatar = $customAvatarName;
             $customer->save();
         }
 
-        $this->dispatchBrowserEvent('noty', ['msg' => $this->selected_id > 0 ? 'Customer Updated' : 'Customer Created']);
-        $this->name = null;
-        $this->reset('name', 'email', 'address', 'salary', 'age', 'gender', 'selected_id');
+        $this->dispatchBrowserEvent('noty', ['msg' => $this->selected_id > 0 ? 'Customer Updated' : 'Customer Created', 'action' => 'close-modal']);
+        $this->reset('name', 'email', 'address', 'salary', 'avatar', 'age', 'gender', 'selected_id', 'phone');
     }
 
 

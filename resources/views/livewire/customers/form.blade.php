@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <label class="form-label">Photo</label>
-                    <input wire:model="photo" accept="image/x-png,image/jpeg,image/jpg" class="form-control" type="file">
+                    <input wire:model="avatar" accept="image/x-png,image/jpeg,image/jpg" class="form-control" type="file">
                 </div>
                 <div class="col-sm-12 col-md-4">
                     <label class="form-label">Salary*</label>

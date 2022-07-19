@@ -17,7 +17,8 @@
     })
 
     window.addEventListener('noty', event => {
-        alert(event.detail.msg)
+        Swal.fire('', event.detail.msg)
+        if (event.detail.action == 'close-modal') fireModal(0)
     })
 
 
