@@ -55,7 +55,7 @@
                                     </td>
                                     <td class="text-center">
 
-                                        <button wire:click="showInfo({{ $customer->id }})" class="btn btn-info btn-sm">
+                                        <button wire:click="Edit({{ $customer->id }}, false)" class="btn btn-info btn-sm">
                                             <i class="far fa-eye fa-lg "></i>
                                         </button>
 
@@ -81,8 +81,11 @@
 
                             </tbody>
                         </table>
-                    </div>
 
+                    </div>
+                    <div class="mt-2">
+                        {{$customers->links()}}
+                    </div>
 
                 </div>
             </div>

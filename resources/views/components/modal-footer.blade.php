@@ -1,7 +1,7 @@
 </div>
 <div class="modal-footer">
     <button class="btn" onclick="fireModal(0)"><i class="flaticon-cancel-12"></i> CANCELAR</button>
-
+    @if($enable)
     <button type="button" wire:loading.attr="disabled" wire:click.prevent="Store" class="btn btn-primary">
 
         <span wire:loading.remove wire:target="Store">GUARDAR</span>
@@ -19,6 +19,7 @@
             </svg>
             PROCESANDO</span>
     </button>
+    @endif
 </div>
 </div>
 </div>

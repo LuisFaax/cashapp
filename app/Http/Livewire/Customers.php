@@ -6,13 +6,18 @@ use Livewire\Component;
 use App\Models\Customer;
 use App\Models\Frecuency;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class Customers extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
     public $name, $email, $phone, $address, $salary, $age, $gender = 'Select', $avatar, $selected_id = 0;
-    public $componentName = 'CUSTOMERS', $action = 'Listado', $photo;
+    public $componentName = 'CUSTOMERS', $action = 'Listado', $photo, $btnSaveEdit = true;
+    public $search;
+
+    protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
         'name' => 'required|min:3|unique:customers',
@@ -33,9 +38,25 @@ class Customers extends Component
 
     public function loadCustomers()
     {
-        $customers = Customer::all();
+        if (strlen($this->search)) {
+            $this->resetPage();
+            $customers = Customer::where('name', 'like', "%{$this->search}%")
+                ->orWhere('address', 'like', "%{$this->search}%")
+                ->orWhere('phone', 'like', "%{$this->search}%")
+                ->paginate(2);
+        } else {
+            $customers = Customer::orderBy('name', 'desc')->paginate(2);
+        }
+
         return $customers;
     }
+
+    /*
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+    */
 
     public function render()
     {
@@ -53,7 +74,7 @@ class Customers extends Component
         $this->dispatchBrowserEvent('modal-open');
     }
 
-    public function Edit(Customer $customer)
+    public function Edit(Customer $customer, $btnEnable = true)
     {
         $this->selected_id = $customer->id;
         $this->name = $customer->name;
@@ -65,6 +86,7 @@ class Customers extends Component
         $this->gender = $customer->gender;
         $this->avatar = null;
         $this->action = 'Edit';
+        $this->btnSaveEdit = $btnEnable;
         $this->dispatchBrowserEvent('modal-open');
     }
 
@@ -121,7 +143,12 @@ class Customers extends Component
         $this->email = $this->name;
     }
 
-    //protected $listeners = ['Destroy'];
+    protected $listeners = ['searching'];
+
+    public function searching($textValue)
+    {
+        $this->search = $textValue;
+    }
 
 
     public function Destroy(Customer $customer)

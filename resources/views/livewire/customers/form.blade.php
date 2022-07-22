@@ -56,4 +56,4 @@
 </div>
 
 
-<x-modal-footer />
+<x-modal-footer enable="{{ $btnSaveEdit }}" />
