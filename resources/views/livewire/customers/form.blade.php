@@ -1,4 +1,4 @@
-<x-modal-header title="{{$componentName}}" action="{{ $action }}" />
+<x-modal-header title="{{$componentName}}" action="{{ $action }}" size="modal-lg" />
 
 <div class="col-lg-12 layout-spacing">
     <div class="statbox widget box box-shadow">

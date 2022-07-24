@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Customers;
+use App\Http\Livewire\Rates;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 // url('customers')
 
 Route::get('customers', Customers::class)->name('customers');
+Route::get('rates', Rates::class)->name('rates');
 
 
 Route::get('/', function () {
@@ -28,4 +30,4 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

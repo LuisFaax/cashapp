@@ -43,9 +43,9 @@ class Customers extends Component
             $customers = Customer::where('name', 'like', "%{$this->search}%")
                 ->orWhere('address', 'like', "%{$this->search}%")
                 ->orWhere('phone', 'like', "%{$this->search}%")
-                ->paginate(2);
+                ->paginate(5);
         } else {
-            $customers = Customer::orderBy('name', 'desc')->paginate(2);
+            $customers = Customer::orderBy('name', 'desc')->paginate(5);
         }
 
         return $customers;
