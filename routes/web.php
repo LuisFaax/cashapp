@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Customers;
 use App\Http\Livewire\Rates;
+use App\Http\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('customers', Customers::class)->name('customers');
 Route::get('rates', Rates::class)->name('rates');
+Route::get('users', Users::class)->name('users');
 
 
 Route::get('/', function () {

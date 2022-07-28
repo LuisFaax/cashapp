@@ -22,6 +22,7 @@
     })
 
 
+    /*
     function Confirm(CustomerId) {
         Swal.fire({
             title: 'Info',
@@ -39,4 +40,5 @@
             }
         })
     }
+    */
 </script>
