@@ -7,7 +7,7 @@
             <form class="row g-3" autocomplete="off">
                 <div class="col-sm-12">
                     <label class="form-label">Name*</label>
-                    <input id="percent" type="number" wire:model.lazy="user.name" class="form-control form-control-sm" placeholder="eje: Melisa">
+                    <input id="focus" type="text" wire:model.lazy="user.name" class="form-control form-control-sm" placeholder="eje: Melisa">
                     @error('user.name') <span class="text-warning">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-12">

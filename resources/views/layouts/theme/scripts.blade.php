@@ -13,7 +13,7 @@
             document.querySelector('.modal').classList.add('show')
             document.querySelector('.modal').style.display = 'block'
             setTimeout(function() {
-                document.getElementById('percent').focus()
+                document.getElementById('focus').focus()
             }, 500)
         } else {
             document.querySelector('.modal').classList.add('hide')

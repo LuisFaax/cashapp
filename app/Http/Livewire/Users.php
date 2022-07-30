@@ -13,7 +13,7 @@ class Users extends Component
 
     // properties
     public User $user; // VARIABLE DE TIPO MODEL
-    public $componentName = 'USERS', $action = 'Listado', $search;
+    public $componentName = 'USERS', $action = 'Listado', $search, $temppass;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -31,8 +31,18 @@ class Users extends Component
 
     public function loadUsers()
     {
-        $users = User::all();
-        return $users;
+        if (strlen($this->search) > 0) {
+            $this->resetPage();
+
+            $fullText = str_replace(" ", "%", $this->search);
+
+            return User::where('name', 'like', "%{$fullText}%")
+                ->orWhere('email', 'like', "%{$fullText}%")
+                ->orWhere('profile', 'like', "%{$fullText}%")
+                ->orderBy('name', 'asc')->paginate(5);
+        } else {
+            return User::orderBy('name', 'asc')->paginate(5);
+        }
     }
 
     public function render()
@@ -44,6 +54,7 @@ class Users extends Component
 
     public function Add()
     {
+        $this->resetValidation();
         $this->user = new User();
         $this->action = 'Create';
         $this->dispatchBrowserEvent('modal-open');
@@ -51,6 +62,9 @@ class Users extends Component
 
     public function Edit(User $user)
     {
+        $this->resetValidation();
+        $this->temppass = $user->password;
+        $user->password = null;
         $this->user = $user;
         $this->action = 'Edit';
         $this->dispatchBrowserEvent('modal-open');
@@ -60,22 +74,29 @@ class Users extends Component
     {
         sleep(2);
 
-        $this->rules['rate.percent'] = $this->rate->id > 0 ? "required|numeric|unique:rates,percent,{$this->rate->id}"
-            : "required|numeric|unique:rates,percent";
+        $this->rules['user.name'] = $this->user->id > 0 ? "required|unique:users,name,{$this->user->id}"
+            : "required|unique:users,name";
+
+        $this->rules['user.email'] = $this->user->id > 0 ? "required|email|unique:users,email,{$this->user->id}"
+            : "required|email|unique:users,email";
+
+
+        $this->user->password = $this->user->password == null ? $this->temppass : bcrypt($this->user->password);
+
 
         $this->validate();
 
-        $this->rate->save();
+        $this->user->save();
 
-        $this->dispatchBrowserEvent('noty', ['msg' => 'Rate Saved', 'action' => 'close-modal']);
-        $this->rate = new User();
+        $this->dispatchBrowserEvent('noty', ['msg' => 'User Saved', 'action' => 'close-modal']);
+        $this->user = new User();
+        $this->temppass = null;
     }
 
     public function Destroy(User $user)
     {
-        //dd('destroy');
         $user->delete();
-        $this->dispatchBrowserEvent('noty', ['msg' => 'Rate Deleted']);
+        $this->dispatchBrowserEvent('noty', ['msg' => 'User Deleted']);
     }
 
     protected $listeners = [
