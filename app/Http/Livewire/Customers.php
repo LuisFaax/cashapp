@@ -58,6 +58,14 @@ class Customers extends Component
     }
     */
 
+    public function fPMT($rate, $num_of_payments, $PV, $FV = 0.00, $Type = 0)
+    {
+        $interest = $rate; // / 100;
+        $xp = pow((1 + $interest), $num_of_payments);
+        return ($PV * $interest * $xp / ($xp - 1) + $interest / ($xp - 1) * $FV) *
+            ($Type == 0 ? 1 : 1 / ($interest + 1));
+    }
+
     public function render()
     {
 
