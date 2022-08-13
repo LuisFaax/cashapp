@@ -12,7 +12,7 @@ class Loans extends Component
     public function render()
     {
 
-        dd($this->PlanMensual(20, 50000, 1));
+        dd($this->PlanTrimestral(20, 50000, 1));
 
         return view('livewire.loans.component')
             ->layout('layouts.theme.app');
