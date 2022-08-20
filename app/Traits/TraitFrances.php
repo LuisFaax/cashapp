@@ -178,6 +178,7 @@ trait TraitFrances
         $PENDIENTE = $prestamo;
         //$PIVOTE = 0;
 
+        $payDate = null;
         for ($i = 1; $i <= $meses; $i++) {
             $INTERESES = round($PENDIENTE * $tipo, 2);
             $TINTERESES += $INTERESES;
@@ -185,9 +186,13 @@ trait TraitFrances
             $TAMORTIZACION += $AMORTIZACION;
             $PENDIENTE -= $AMORTIZACION;
             $TCUOTAS += $cuota;
-            //$PIVOTE += 2;
 
-            $payDate = Carbon::now()->addMonth($i + 2);
+
+            if ($payDate == null) {
+                $payDate = Carbon::now()->addMonth(3);
+            } else {
+                $payDate = $payDate->addMonth(3);
+            }
 
             if ($i == 1) {
                 $tabla = collect([[
