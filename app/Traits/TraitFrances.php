@@ -51,7 +51,7 @@ trait TraitFrances
             $PENDIENTE -= $AMORTIZACION;
             $TCUOTAS += $cuota;
 
-            $payDate = Carbon::now()->addMonth($i - 1);
+            $payDate = Carbon::now()->addMonth($i == 1 ? 1 : $i);
 
             if ($i == 1) {
                 $tabla = collect([[
