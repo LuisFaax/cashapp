@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="table-responsive mt-4">
-
+                        {{$statusComponent}}
                         <table class="table">
                             <thead>
                                 <tr>
@@ -102,6 +102,7 @@
                                 @endforelse
                             </tbody>
                             <tfoot>
+                                @if(count($plan)>0)
                                 <tr class="text-warning">
                                     <td>RESUMEN</td>
                                     <td>TOTAL PAGADO: {{ $plan[0]['TOTAL PAGADO'] }}</td>
@@ -109,6 +110,7 @@
                                     <td>AMORTIZACION:{{ $plan[0]['AMORTIZACION'] }}</td>
                                     <td>BALANCE: {{ $plan[0]['PENDIENTE'] }}</td>
                                 </tr>
+                                @endif
                             </tfoot>
                         </table>
 
@@ -148,4 +150,7 @@
             color: #009688 !important;
         }
     </style>
+    <script>
+
+    </script>
 </div>
