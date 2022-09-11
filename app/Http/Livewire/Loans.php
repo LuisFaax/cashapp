@@ -3,14 +3,16 @@
 namespace App\Http\Livewire;
 
 use App\Models\Loan;
+use App\Models\Plan;
 use App\Models\Rate;
 use Livewire\Component;
 use App\Models\Customer;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Frecuency;
-use App\Models\Plan;
 use App\Traits\TraitAleman;
 use App\Traits\TraitFrances;
 use App\Traits\TraitAmericano;
+use Illuminate\Support\Facades\DB;
 
 class Loans extends Component
 {
@@ -25,6 +27,7 @@ class Loans extends Component
 
     public function render()
     {
+        $this->createPDF(Loan::find(5));
 
         return view('livewire.loans.component', [
             'customers' => Customer::orderBy('name', 'asc')->get(),
@@ -59,32 +62,73 @@ class Loans extends Component
         }
 
         $this->statusComponent = 'Guardando prestamo...';
-        $loan = Loan::create([
-            'amount' => $this->amount,
-            'frecuency_id' => $this->frecuency_id,
-            'user_id' => null, //Auth()->user()->id,
-            'customer_id' => $this->customer_id,
-            'rate_id' => $this->rate_id,
-        ]);
 
-        foreach ($this->plan as $key => $pay) {
-            if ($key > 0) {
-                Plan::create([
-                    'loan_id' => $loan->id,
-                    'date' => $pay['FECHA'],
-                    'number' => $key,
-                    'payment' => $pay['CUOTA'],
-                    'interest' => $pay['INTERESES'],
-                    'amort' => $pay['AMORTIZACION'],
-                    'balance' => $pay['PENDIENTE']
-                ]);
+        DB::beginTransaction();
+
+        try {
+            $loan = Loan::create([
+                'amount' => $this->amount,
+                'frecuency_id' => $this->frecuency_id,
+                'user_id' => null, //Auth()->user()->id,
+                'customer_id' => $this->customer_id,
+                'rate_id' => $this->rate_id,
+            ]);
+
+            foreach ($this->plan as $key => $pay) {
+                if ($key > 0) {
+                    Plan::create([
+                        'loan_id' => $loan->id,
+                        'date' => $pay['FECHA'],
+                        'number' => $key,
+                        'payment' => $pay['CUOTA'],
+                        'interest' => $pay['INTERESES'],
+                        'amort' => $pay['AMORTIZACION'],
+                        'balance' => $pay['PENDIENTE']
+                    ]);
+                }
             }
+            //public $customer_id = 0, $amount = 0, $rate = 0, $rate_id = 0, $years = 1, $frecuency_id = 0, $method = 'Frances', $plan = [];
+
+            // confirmar transacción
+            DB::commit();
+
+            // resetear propiedades
+            $this->reset(
+                'amount',
+                'customer_id',
+                'rate',
+                'rate_id',
+                'years',
+                'frecuency_id',
+                'method',
+                'plan'
+            );
+            // feedback front
+            $this->dispatchBrowserEvent('noty', ['msg' => 'PRÉSTAMO GUARDADO CON ÉXITO']);
+
+            // generar pdf
+            $this->createPDF($loan);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $this->dispatchBrowserEvent('noty-error', ['msg' => 'Error al guardar el préstamo' . $th->getMessage()]);
         }
-        $this->dispatchBrowserEvent('noty', ['msg' => 'PRÉSTAMO GUARDADO CON ÉXITO']);
+
         //$this->reset('','',''','');
     }
 
+    public function createPDF(Loan $loan)
+    {
+        // dd($loan);
+        //plan_00001_dgsdfgsdfgsdf.pdf
+        $fileName = "plan_" . str_pad($loan->id, 5, STR_PAD_LEFT) . uniqid() . '.pdf';
 
+        $doc = PDF::loadView('pdf.loan', compact('loan'))->output();
+
+        return response()->streamDownload(
+            fn () => print($doc),
+            $fileName
+        );
+    }
 
     public function setValueRate()
     {
