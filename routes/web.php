@@ -24,6 +24,8 @@ Route::get('customers', Customers::class)->name('customers');
 Route::get('rates', Rates::class)->name('rates');
 Route::get('users', Users::class)->name('users');
 Route::get('loans', Loans::class)->name('loans');
+Route::get('loans/lastpdf', [Loans::class, "createPDF"])->name('loans.lastpdf');
+
 
 
 Route::get('/', function () {

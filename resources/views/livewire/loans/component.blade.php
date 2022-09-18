@@ -13,7 +13,7 @@
                         <div class="col-sm-12 col-md-2 d-flex justify-content-end p-3">
                             <div class="btn-group" role="group">
                                 <button wire:click.prevent="Save" class="btn btn-sm btn-dark">SAVE LOAN </button>
-                                <button class="btn btn-sm btn-primary">PREVIEW PDF </button>
+                                <button wire:click="createPDF(5)" class="btn btn-sm btn-primary">PREVIEW PDF </button>
                             </div>
                         </div>
 
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-sm-12 col-md-3">
+                        <div wire:ignore class="col-sm-12 col-md-3">
                             CUSTOMER
                             <select wire:model="customer_id" id="tomselect" class="form-control form-control-sm">
                                 <option value="">SELECT</option>

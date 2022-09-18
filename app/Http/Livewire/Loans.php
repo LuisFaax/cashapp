@@ -7,12 +7,13 @@ use App\Models\Plan;
 use App\Models\Rate;
 use Livewire\Component;
 use App\Models\Customer;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Frecuency;
 use App\Traits\TraitAleman;
 use App\Traits\TraitFrances;
 use App\Traits\TraitAmericano;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class Loans extends Component
 {
@@ -25,9 +26,11 @@ class Loans extends Component
     public $customer_id = 0, $amount = 0, $rate = 0, $rate_id = 0, $years = 1, $frecuency_id = 0, $method = 'Frances', $plan = [];
     public $statusComponent = '';
 
+
     public function render()
     {
-        $this->createPDF(Loan::find(5));
+
+
 
         return view('livewire.loans.component', [
             'customers' => Customer::orderBy('name', 'asc')->get(),
@@ -107,7 +110,7 @@ class Loans extends Component
             $this->dispatchBrowserEvent('noty', ['msg' => 'PRÉSTAMO GUARDADO CON ÉXITO']);
 
             // generar pdf
-            $this->createPDF($loan);
+            Redirect::away('loans/lastpdf');
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatchBrowserEvent('noty-error', ['msg' => 'Error al guardar el préstamo' . $th->getMessage()]);
@@ -116,17 +119,17 @@ class Loans extends Component
         //$this->reset('','',''','');
     }
 
-    public function createPDF(Loan $loan)
+    public function createPDF()
     {
-        // dd($loan);
-        //plan_00001_dgsdfgsdfgsdf.pdf
-        $fileName = "plan_" . str_pad($loan->id, 5, STR_PAD_LEFT) . uniqid() . '.pdf';
+        $loan = Loan::orderBy('id', 'desc')->first();
+
+        $FileName = "plan_" . str_pad($loan->id, 5, "0", STR_PAD_LEFT) . uniqid();
 
         $doc = PDF::loadView('pdf.loan', compact('loan'))->output();
 
         return response()->streamDownload(
             fn () => print($doc),
-            $fileName
+            $FileName . '.pdf'
         );
     }
 
