@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ecae7234613063a192ac93db51acc4ab",
+    "content-hash": "d92d7b6d2cd64a069c7f3ab74898a320",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -5308,6 +5308,50 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.4"
             },
             "time": "2021-12-08T09:12:39+00:00"
+        },
+        {
+            "name": "ultramsg/whatsapp-php-sdk",
+            "version": "2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ultramsg/whatsapp-php-sdk.git",
+                "reference": "a4287d176d8ec1a2c44e62d4d178103e2cefa360"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ultramsg/whatsapp-php-sdk/zipball/a4287d176d8ec1a2c44e62d4d178103e2cefa360",
+                "reference": "a4287d176d8ec1a2c44e62d4d178103e2cefa360",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "ultramsg.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ultramsg.com",
+                    "email": "info@ultramsg.com"
+                }
+            ],
+            "description": "Lightweight PHP library for WhatsApp API to send the whatsappp messages in PHP provided by ultramsg.com",
+            "homepage": "https://ultramsg.com",
+            "keywords": [
+                "whatsapp-api",
+                "whatsapp-api-php",
+                "whatsapp-bot",
+                "whatsapp-chat"
+            ],
+            "support": {
+                "issues": "https://github.com/ultramsg/whatsapp-php-sdk/issues",
+                "source": "https://github.com/ultramsg/whatsapp-php-sdk/tree/2.0.7"
+            },
+            "time": "2022-08-24T15:29:46+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

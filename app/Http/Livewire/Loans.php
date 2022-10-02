@@ -8,12 +8,14 @@ use App\Models\Rate;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\Frecuency;
+use App\Traits\Noty;
 use App\Traits\TraitAleman;
 use App\Traits\TraitFrances;
 use App\Traits\TraitAmericano;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class Loans extends Component
 {
@@ -21,6 +23,7 @@ class Loans extends Component
     use TraitFrances;
     use TraitAleman;
     use TraitAmericano;
+    use Noty;
 
     //properties
     public $customer_id = 0, $amount = 0, $rate = 0, $rate_id = 0, $years = 1, $frecuency_id = 0, $method = 'Frances', $plan = [];
@@ -29,7 +32,7 @@ class Loans extends Component
 
     public function render()
     {
-
+        // $this->sendWhatsApp("plan_000156339a4d1ce35f.pdf");
 
 
         return view('livewire.loans.component', [
@@ -107,10 +110,12 @@ class Loans extends Component
                 'plan'
             );
             // feedback front
-            $this->dispatchBrowserEvent('noty', ['msg' => 'PRÉSTAMO GUARDADO CON ÉXITO']);
+
 
             // generar pdf
             Redirect::away('loans/lastpdf');
+
+            $this->dispatchBrowserEvent('noty', ['msg' => 'PRÉSTAMO GUARDADO Y DOCUMENTO ENVIADO']);
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->dispatchBrowserEvent('noty-error', ['msg' => 'Error al guardar el préstamo' . $th->getMessage()]);
@@ -127,10 +132,29 @@ class Loans extends Component
 
         $doc = PDF::loadView('pdf.loan', compact('loan'))->output();
 
+        // save pdf
+        Storage::put('public/loanspdf/' . $FileName . ".pdf", $doc);
+
+        $this->sendWhatsApp($FileName . '.pdf');
+
         return response()->streamDownload(
             fn () => print($doc),
             $FileName . '.pdf'
         );
+    }
+
+    public function sendWhatsApp($filePDF)
+    {
+        $fileToSend = 'storage/loanspdf/' . $filePDF;
+
+        if (file_exists($fileToSend)) {
+
+            $loan = Loan::orderBy('id', 'desc')->first();
+            $this->Loan($loan, $loan->customer->phone, $filePDF);
+            //$this->dispatchBrowserEvent('noty',['msg' => 'Plan de pagos enciado']);
+        } else {
+            $this->dispatchBrowserEvent('noty-error', ['msg' => 'No existe el plan de pagos fisicamente en sistema']);
+        }
     }
 
     public function setValueRate()
@@ -138,10 +162,6 @@ class Loans extends Component
         $this->rate = intval(Rate::find($this->rate_id)->percent);
     }
 
-    // public function updatedRateId()
-    // {
-    //     dd('rate_id');
-    // }
 
     public function Simulate()
     {
