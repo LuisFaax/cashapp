@@ -79,5 +79,6 @@ trait TraitAleman
         ]);
 
         dd($tabla);
+        return $tabla;
     }
 }

@@ -30,6 +30,11 @@ class Loan extends Model
         return $this->belongsTo(Rate::class);
     }
 
+    public function frecuency()
+    {
+        return $this->belongsTo(Frecuency::class);
+    }
+
 
     //accessors
 

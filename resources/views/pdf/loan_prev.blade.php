@@ -37,20 +37,20 @@
                         </div>
                         <div class="tm_invoice_right tm_text_right">
                             <div class="tm_primary_color tm_f50 tm_text_uppercase">SISTEMA CASHAPP</div>
-                            <h6>Plan de Pagos al {{\Carbon\Carbon::now()->format('Y-m-d')}}</h6>
+                            <h6>Simulación Plan de Pagos</h6>
                         </div>
                     </div>
                     <div class="tm_invoice_info tm_mb20">
                         <div class="tm_invoice_seperator tm_gray_bg"></div>
                         <div class="tm_invoice_info_list">
                             <p class="tm_invoice_number tm_m0">
-                                Socio: <b class="tm_primary_color">#{{str_pad($loan->customer->id, 5, "0", STR_PAD_LEFT)}} {{$loan->customer->name}}</b>
-                                Frecuencia: <b class="tm_primary_color">{{$loan->frecuency->name}}</b>
+                                Socio: <b class="tm_primary_color">#{{str_pad($customer->id, 5, "0", STR_PAD_LEFT)}} {{$customer->name}}</b>
+                                Frecuencia: <b class="tm_primary_color">{{ $frecuency->name }}</b>
                             </p>
                             <p class="tm_invoice_date tm_m0">
-                                Monto Prestado: <b class="tm_primary_color">${{number_format($loan->amount,2)}}</b>
-                                Tasa Anual: <b class="tm_primary_color">{{number_format($loan->rate->percent,0)}}%</b>
-                                Interés Mora: <b class="tm_primary_color">{{number_format($loan->rate->fee,0)}}%</b>
+                                Monto Prestado: <b class="tm_primary_color">${{number_format($amount,2)}}</b>
+                                Tasa Anual: <b class="tm_primary_color">{{number_format($rate->percent,0)}}%</b>
+                                Interés Mora: <b class="tm_primary_color">{{number_format($rate->fee,0)}}%</b>
                                 Método: <b class="tm_primary_color">{{$method}}</b>
                             </p>
                         </div>
@@ -71,16 +71,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($loan->plan as $pay)
+                                        @forelse($plan as $key => $item)
+                                        @if($key > 0)
                                         <tr>
-                                            <td class="tm_width_1">{{$pay->number}}</td>
-                                            <td class="tm_width_3">{{$pay->date}}</td>
-                                            <td class="tm_width_2">${{ number_format($pay->payment,2)}}</td>
-                                            <td class="tm_width_2">${{ number_format($pay->amort,2)}}</td>
-                                            <td class="tm_width_2">${{ number_format($pay->interest,2)}}</td>
-                                            <td class="tm_width_3">${{ number_format($pay->balance,2)}}</td>
+                                            <td class="text-center">{{ $key }}</td>
+                                            <td class="text-center">{{ $item['FECHA'] }}</td>
+                                            <td class="text-center">${{ number_format($item['CUOTA'],2) }}</td>
+                                            <td class="text-center">${{ number_format($item['AMORTIZACION'],2) }}</td>
+                                            <td class="text-center">${{ number_format($item['INTERESES'],2) }}</td>
+                                            <td class="text-center">${{ number_format($item['PENDIENTE'],2) }}</td>
                                         </tr>
-                                        @endforeach
+                                        @endif
+                                        @empty
+                                        <tr>
+                                            <td>NO RESULTS</td>
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -91,7 +97,7 @@
                         <p class="tm_mb5"><b class="tm_primary_color">Firma de conformidad</b></p>
                         <hr>
                         <p style="margin-top: 25px;">
-                            Socio: {{$loan->customer->name}}
+                            Socio: {{$customer->name}}
                         </p>
                     </div><!-- .tm_note -->
                 </div>

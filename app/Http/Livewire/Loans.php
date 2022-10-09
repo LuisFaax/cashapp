@@ -130,7 +130,7 @@ class Loans extends Component
 
         $FileName = "plan_" . str_pad($loan->id, 5, "0", STR_PAD_LEFT) . uniqid();
 
-        $doc = PDF::loadView('pdf.loan', compact('loan'))->output();
+        $doc = PDF::loadView('pdf.loan', ['loan' => $loan, 'method' => $this->method])->output();
 
         // save pdf
         Storage::put('public/loanspdf/' . $FileName . ".pdf", $doc);
@@ -168,7 +168,37 @@ class Loans extends Component
         if ($this->method == 'Frances') {
             if ($this->frecuency_id == 1) { //mensual
                 $this->plan = $this->PlanMensual($this->rate, $this->amount, $this->years);
+            } else if ($this->frecuency_id == 2) { //bimestral
+                $this->plan = $this->PlanBimestral($this->rate, $this->amount, $this->years);
+            } else if ($this->frecuency_id == 3) { // trimestral
+                $this->plan = $this->PlanTrimestral($this->rate, $this->amount, $this->years);
             }
+            // semanal
+            // anual
         }
+        if ($this->method == 'Aleman') {
+            $this->plan = $this->PlanMensualAleman($this->rate, $this->amount, $this->years);
+        }
+    }
+
+    public function previewPDF()
+    {
+
+        $FileName = "plan_" . str_pad("X", 5, "0", STR_PAD_LEFT) . uniqid();
+
+        $doc = PDF::loadView('pdf.loan_prev', [
+            'plan' => $this->plan,
+            'method' => $this->method,
+            'amount' => $this->amount,
+            'customer' => Customer::find($this->customer_id),
+            'rate' => Rate::find($this->rate_id),
+            'frecuency' => Frecuency::find($this->frecuency_id)
+        ])->output();
+
+
+        return response()->streamDownload(
+            fn () => print($doc),
+            $FileName . '.pdf'
+        );
     }
 }
